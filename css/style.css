@@ -1,0 +1,381 @@
+@import url(reset.css);
+
+html {
+    width: 100vw;
+    height: 100vh;
+    background: black;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+    user-select: none;
+    z-index: 0;
+}
+
+#load {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 1%;
+    font-size: 15em;
+    text-align: left;
+    font-weight: bolder;
+    vertical-align: middle;
+    background: yellow;
+    user-select: none;
+    animation: 1.2s ease opening forwards;
+    z-index: 3;
+}
+
+#gallery {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 100%;
+    height: auto;
+    padding-top: 50px;
+    padding-bottom: 200px;
+    box-sizing: border-box;
+    gap: 10px;
+    overflow-x: hidden;
+    user-select: none;
+    z-index: 1;
+}
+
+
+.modal {
+    position: sticky;
+    display: none;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 5;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    user-select: none;
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    height: 240px;
+    border-radius: 4px;
+    transition: .5s ease-in-out;
+    overflow: hidden;
+}
+
+.image-container:hover {
+    box-sizing: border-box;
+    border: 1px solid #007bff;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.left {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 50.5vw;
+    bottom: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    justify-content: center;
+    width: 0;
+    height: 100vh;
+    color: transparent;
+    font-size: 15em;
+    text-align: right;
+    font-weight: bolder;
+    vertical-align: middle;
+    border-right: 1px solid orangered;
+    background: orangered;
+    animation: 2.2s ease openleft forwards;
+    z-index: 2;
+}
+
+.right {
+    position: fixed;
+    left: 50.5vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    width: 0;
+    height: 100vh;
+    margin-right: 0;
+    color: transparent;
+    font-size: 15em;
+    text-align: left;
+    font-weight: bolder;
+    vertical-align: middle;
+    border-left: 1px solid orangered;
+    background: orangered;
+    animation: 2.2s ease openright forwards;
+    z-index: 2;
+}
+
+.preview {
+    width: 200px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button,
+.download-btn {
+    position: absolute;
+    bottom: 10px;
+    background-color: transparent;
+    color: transparent;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+
+.image-container:hover>.download-btn {
+    position: absolute;
+    bottom: 10px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#closeLightbox {
+    position: absolute;
+    top: 5px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 100px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#closeLightbox:hover,
+#closeLightbox:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#prevImage, #nextImage {
+    position: absolute;
+    top: 45%;
+    font-size: 50px;
+    color: white;
+    cursor: pointer;
+    z-index: 6;
+}
+
+#prevImage {
+    left: 30px;
+}
+
+#nextImage {
+    right: 30px;
+}
+
+.lightboxButton {
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    width: 200px;
+    height: 80px;
+    transform: translateX(-50%);
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+@keyframes opening {
+    from {
+        top: 0;
+        display: block;
+        height: 100vh;
+    }
+
+    70% {
+        top: 0;
+        display: block;
+        height: 100vh;
+    }
+
+    to {
+        top: -100vh;
+        display: none;
+        height: 0;
+    }
+}
+
+@keyframes openleft {
+    from {
+        left: 0;
+        display: block;
+        width: 50.5vw;
+        height: 100vh;
+    }
+
+    70% {
+        left: 0;
+        display: block;
+        width: 50.5vw;
+        height: 100vh;
+        color: black;
+    }
+
+    to {
+        right: 100vw;
+        display: none;
+        min-width: 0;
+        min-height: auto;
+        border: 0;
+    }
+}
+
+
+@keyframes openright {
+    from {
+        left: 50.5vw;
+        right: 0;
+        display: block;
+        width: 50vw;
+        height: 100vh;
+    }
+
+    70% {
+        left: 50.5vw;
+        right: 0;
+        display: block;
+        width: 50vw;
+        height: 100vh;
+        color: black;
+    }
+
+    to {
+        left: 100vw;
+        right: 0;
+        margin-right: 0;
+        display: none;
+        min-width: 0;
+        min-height: 100vh;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    #load {
+        display: none;
+        font-size: 6em;
+        animation: none;
+    }
+
+    .left {
+        display: none;
+        font-size: 6em;
+        animation: none;
+    }
+
+    .right {
+        display: none;
+        font-size: 6em;
+        animation: none;
+    }
+
+    .download-btn {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    .modal {
+        position: fixed;
+        display: none;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 5;
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 100%;
+        max-width: auto;
+        user-select: none;
+    }
+
+    .image-container {
+        width: 33%;
+        height: auto;
+    }
+
+    #prevImage, #nextImage {
+        position: absolute;
+        top: 77.5%;
+        font-size: 80px;
+        color: white;
+        cursor: pointer;
+        z-index: 6;
+    }
+}
